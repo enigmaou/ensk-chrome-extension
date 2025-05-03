@@ -79,3 +79,12 @@ h1 {
   position: relative;
   display: inline-block;
 }
+
+.malicious-info-container {
+  display: inline;
+}
+
+.malicious-description p {
+  padding: 1em;
+  background-color: #333;
+}

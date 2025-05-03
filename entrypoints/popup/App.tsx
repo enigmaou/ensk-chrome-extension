@@ -83,9 +83,9 @@ function App() {
                       const dropdownKey = `${ext.name}-${perm}`;
                       return (
                         <li key={idx} className="permission-item">
-                          {perm}
+                          <span className="permission-name">{perm}</span>
                           {maliciousInfo && (
-                            <div className="malicious-info">
+                            <div className="malicious-info-container">
                               <button
                                 className="dropdown-trigger"
                                 onClick={() => toggleDropdown(dropdownKey)}
@@ -93,16 +93,9 @@ function App() {
                                 ⚠️
                               </button>
                               {dropdownStates[dropdownKey] && (
-                                <div className="dropdown-content">
+                                <div className="malicious-description">
                                   <p>{maliciousInfo.description}</p>
-                                  <a
-                                    href={maliciousInfo.url}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="see-more"
-                                  >
-                                    See more
-                                  </a>
+                                  <a href={maliciousInfo.url} target="_blank" rel="noopener noreferrer">Learn more</a>
                                 </div>
                               )}
                             </div>
