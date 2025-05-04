@@ -9,6 +9,7 @@ export default defineBackground(() => {
           const extensions = items.map((ext) => ({
             name: ext.name,
             permissions: ext.permissions || [],
+            hostPermissions: ext.hostPermissions || [], // Added hostPermissions
           }));
           sendResponse({ success: true, extensions });
         });

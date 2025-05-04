@@ -3,6 +3,7 @@
   margin: 0 auto;
   padding: 1rem;
   text-align: left;
+  min-width: 640px;
 }
 
 h1 {
@@ -61,6 +62,7 @@ h1 {
   display: inline;
 }
 
+/* Updated the background color and text color for better visibility during the day */
 .dropdown-content {
   display: block;
   background-color: #333;
@@ -86,5 +88,31 @@ h1 {
 
 .malicious-description p {
   padding: 1em;
-  background-color: #333;
+  background-color: rgba(126, 126, 126, 0.1);
+}
+
+.severity-badge {
+  display: inline-block;
+  margin-left: 10px;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: bold;
+  color: white;
+}
+
+.severity-low {
+  background-color: green;
+}
+
+.severity-medium {
+  background-color: orange;
+}
+
+.severity-high {
+  background-color: red;
+}
+
+.severity-critical {
+  background-color: darkred;
 }
