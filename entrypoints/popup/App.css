@@ -27,12 +27,19 @@ h1 {
 }
 
 .extension-item {
-  margin-bottom: 1rem;
+  margin-bottom: 3rem; /* Further increase spacing between extensions */
 }
 
 .extension-name {
   font-size: 1.2rem;
   font-weight: bold;
+}
+
+.extension-icon {
+  width: 32px;
+  height: 32px;
+  margin-right: 10px;
+  vertical-align: middle;
 }
 
 .permissions-list {
@@ -43,7 +50,11 @@ h1 {
 
 .permission-item {
   display: block; /* Changed to block to stack items vertically */
-  margin-bottom: 10px; /* Added spacing between permissions */
+  margin-bottom: 5px; /* Reduce spacing between permissions */
+}
+
+.permission-name {
+  font-family: monospace; /* Apply monospace font */
 }
 
 .no-permissions {
@@ -115,4 +126,8 @@ h1 {
 
 .severity-critical {
   background-color: darkred;
+}
+
+.host-permission-name {
+  font-family: monospace; /* Apply monospace font */
 }

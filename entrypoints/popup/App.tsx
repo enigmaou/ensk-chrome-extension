@@ -74,6 +74,7 @@ interface ExtensionInfo {
   name: string;
   permissions: string[];
   hostPermissions: string[]; // Added hostPermissions
+  icon?: string; // Added icon
 }
 
 const MALICIOUS_PERMISSIONS = [
@@ -129,71 +130,72 @@ function App() {
 
   return (
     <>
-      <div className="extensions">
-        <h1 className="extensions-title">Installed Extensions and Permissions</h1>
+      <h1 className="extensions-title">Installed Extensions and Permissions</h1>
+      <div className="intro">
+        <p>Welcome to the Extension Permissions Checker! This tool helps you review installed extensions and their permissions.</p>
+      </div>
+
+      <ul className="extensions-list">
         {extensions.length === 0 ? (
           <p className="no-extensions">No extensions found.</p>
         ) : (
-          <ul className="extensions-list">
-            {
-              extensions.map((ext, index) => {
-                const score = calculateRiskScore(ext);
-                const level = getRiskLevel(score);
-                return (
-                  <li key={index} className="extension-item">
-                    <strong className="extension-name">{ext.name}</strong>
-                    <span className={`severity-badge severity-${level.toLowerCase()}`}>{level}</span>
-                    <ul className="permissions-list">
-                      {ext.permissions.length > 0 ? (
-                        ext.permissions.map((perm, idx) => {
-                          const maliciousInfo = isMaliciousPermission(perm);
-                          const dropdownKey = `${ext.name}-${perm}`;
-                          return (
-                            <li key={idx} className="permission-item">
-                              <span className="permission-name">{perm}</span>
-                              {maliciousInfo && (
-                                <div className="malicious-info-container">
-                                  <button
-                                    className="dropdown-trigger"
-                                    onClick={() => toggleDropdown(dropdownKey)}
-                                  >
-                                    ⚠️
-                                  </button>
-                                  {dropdownStates[dropdownKey] && (
-                                    <div className="malicious-description">
-                                      <p>{maliciousInfo.description}</p>
-                                      <a href={maliciousInfo.url} target="_blank" rel="noopener noreferrer">Learn more</a>
-                                    </div>
-                                  )}
+          extensions.map((ext, index) => {
+            const score = calculateRiskScore(ext);
+            const level = getRiskLevel(score);
+            return (
+              <li key={index} className="extension-item">
+                {ext.icon && <img src={ext.icon} alt={`${ext.name} icon`} className="extension-icon" />} {/* Use icon property */}
+                <strong className="extension-name">{ext.name}</strong>
+                <span className={`severity-badge severity-${level.toLowerCase()}`}>{level}</span>
+                <h2>Permissions</h2>
+                <ul className="permissions-list">
+                  {ext.permissions.length > 0 ? (
+                    ext.permissions.map((perm, idx) => {
+                      const maliciousInfo = isMaliciousPermission(perm);
+                      const dropdownKey = `${ext.name}-${perm}`;
+                      return (
+                        <li key={idx} className="permission-item">
+                          <span className="permission-name">{perm}</span>
+                          {maliciousInfo && (
+                            <div className="malicious-info-container">
+                              <button
+                                className="dropdown-trigger"
+                                onClick={() => toggleDropdown(dropdownKey)}
+                              >
+                                ⚠️
+                              </button>
+                              {dropdownStates[dropdownKey] && (
+                                <div className="malicious-description">
+                                  <p>{maliciousInfo.description}</p>
+                                  <a href={maliciousInfo.url} target="_blank" rel="noopener noreferrer">Learn more</a>
                                 </div>
                               )}
-                            </li>
-                          );
-                        })
-                      ) : (
-                        <li className="no-permissions">No permissions</li>
-                      )}
-                    </ul>
-                    <ul className="host-permissions-list"> {/* Added hostPermissions section */}
-                      <h3>Host Permissions</h3>
-                      {ext.hostPermissions.length > 0 ? (
-                        ext.hostPermissions.map((hostPerm, idx) => (
-                          <li key={idx} className="host-permission-item">
-                            <span className="host-permission-name">{hostPerm}</span>
-                          </li>
-                        ))
-                      ) : (
-                        <li className="no-host-permissions">No host permissions</li>
-                      )}
-                    </ul>
-                  </li>
-                )
-              }
-              )
-            }
-          </ul>
+                            </div>
+                          )}
+                        </li>
+                      );
+                    })
+                  ) : (
+                    <li className="no-permissions">No permissions</li>
+                  )}
+                </ul>
+                <h2>Host Permissions</h2>
+                <ul className="host-permissions-list">
+                  {ext.hostPermissions.length > 0 ? (
+                    ext.hostPermissions.map((host, idx) => (
+                      <li key={idx} className="host-permission-item">
+                        <span className="host-permission-name monospace">{host}</span> {/* Apply monospace style */}
+                      </li>
+                    ))
+                  ) : (
+                    <li className="no-host-permissions">No host permissions</li>
+                  )}
+                </ul>
+              </li>
+            );
+          })
         )}
-      </div>
+      </ul>
     </>
   );
 }
